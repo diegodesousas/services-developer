@@ -24,6 +24,10 @@ mysql57-shell:
 	@echo "Welcome to mysql57 command line"
 	@docker exec -it ${MYSQL57_SERVICE} mysql -u${DATABASE_USER} -p${DATABASE_PASSWD}
 
+mysql57-ip:
+	@echo "IP from container ${POSTGRES12_SERVICE}"	
+	@docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' ${MYSQL57_SERVICE}
+
 postgres12-up:
 	@echo "starting postgres 12"
 	@docker run \
@@ -45,3 +49,7 @@ postgres12-down:
 postgres12-shell:
 	@echo "Welcome to postgres 12 command line"
 	@docker exec -it ${POSTGRES12_SERVICE} psql postgresql://${DATABASE_USER}:${DATABASE_PASSWD}@localhost:5432
+
+postgres12-ip:
+	@echo "IP from container ${POSTGRES12_SERVICE}"	
+	@docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' ${POSTGRES12_SERVICE}
